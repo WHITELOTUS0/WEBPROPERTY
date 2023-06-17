@@ -1,4 +1,5 @@
 const mysql = require('mysql');
+const db = require('bcrypt');
 
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -13,7 +14,7 @@ connection.connect((err) => {
 });
 
 const user = {
-    name: 'John Doe',
+    Names: 'John Doe',
     username: 'johndoe',
     password: 'password123',
     email: 'johndoe@example.com',
@@ -26,5 +27,9 @@ connection.query('INSERT INTO user SET ?', user, (err, result) => {
     console.log('Inserted ID:', result.insertId);
 });
 
-
+connection.end((err) => {
+    if (err) throw err;
+    console.log('Connection closed.');
+  });
+  
   
