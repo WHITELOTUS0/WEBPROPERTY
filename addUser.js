@@ -10,6 +10,15 @@ const user = {
   telno: '1234567890',
 };
 
+function checkEmailExists(email) {
+    return new Promise((resolve, reject) => {
+      connection.query('SELECT * FROM users WHERE email = ?', [email], (error, results) => {
+        if (error) reject(error);
+        resolve(results.length > 0);
+      });
+    });
+  }
+  
 // Hash the password
 bcrypt.hash(user.password, 10, (err, hashedPassword) => {
   if (err) {
