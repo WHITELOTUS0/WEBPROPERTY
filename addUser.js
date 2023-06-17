@@ -1,35 +1,38 @@
-const mysql = require('mysql');
-const db = require('bcrypt');
-
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'Bujumbura1#',
-  database: 'propertyproject'
-});
-
-connection.connect((err) => {
-  if (err) throw err;
-  console.log('Connected to MySQL database!');
-});
+// addUser.js
+const bcrypt = require('bcrypt');
+const db = require('./db');
 
 const user = {
-    Names: 'John Doe',
-    username: 'johndoe',
-    password: 'password123',
-    email: 'johndoe@example.com',
-    telno: '1234567890'
+  Names: 'John Doe',
+  username: 'johndoe',
+  password: 'password123',
+  email: 'johndoe@example.com',
+  telno: '1234567890',
+};
+
+// Hash the password
+bcrypt.hash(user.password, 10, (err, hashedPassword) => {
+  if (err) {
+    console.error('Error hashing password:', err);
+    return;
+  }
+
+  // Store the user in the database
+  const newUser = {
+    Names: user.Names,
+    username: user.username,
+    password: hashedPassword,
+    email: user.email,
+    telno: user.telno,
   };
 
-connection.query('INSERT INTO user SET ?', user, (err, result) => {
-    if (err) throw err;
+  const query = 'INSERT INTO user SET ?';
+  db.query(query, newUser, (err, result) => {
+    if (err) {
+      console.error('Error adding user:', err);
+      return;
+    }
     console.log('User added successfully!');
-    console.log('Inserted ID:', result.insertId);
-});
-
-connection.end((err) => {
-    if (err) throw err;
-    console.log('Connection closed.');
+    console.log('Result:', result);
   });
-  
-  
+});
