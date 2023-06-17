@@ -2,10 +2,10 @@ const bcrypt = require('bcrypt');
 const db = require('./db');
 
 const user = {
-  Names: 'John Doe',
-  username: 'johndoe',
+  Names: 'Glorry',
+  username: 'whitelotus',
   password: 'password123',
-  email: 'johndoe@example.com',
+  email: 'glorry@example.com',
   telno: '1234567890',
 };
 
