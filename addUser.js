@@ -59,3 +59,7 @@ checkEmailExists(user.email)
   .catch((error) => {
     console.error('Error checking email existence:', error);
   });
+
+  app.listen(3000, () => {
+    console.log('Server is running on port 3000');
+  });
